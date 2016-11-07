@@ -1,23 +1,28 @@
 package Second_Chapter;
 
+import java.util.Random;
 /**
  * Created by Денис on 06.11.2016.
  */
-import java.util.Random;
 
 public class Sort {
     public static void main(String[] args){
         int[] a = new int[10];
+        int num = 15;
         Generation(a);
         Max(a);
         Choose(a);
         Booble(a);
+        int poz = Search(a, num);
+        if (poz == 0){
+            System.out.println("Искомое число не содержится в массиве");
+        } else System.out.println("Позиция искомого элемента: " + poz);
     }
     public static void Generation(int[] a){
         Random r = new Random();
         System.out.println("Генерация массива:");
         for (int i = 0; i < 10; i++) {
-            a[i] = r.nextInt(100);
+            a[i] = r.nextInt(30);
             System.out.println(a[i]);
         }
     }
@@ -68,17 +73,22 @@ public class Sort {
         }
     }
     public static int Search(int[] a, int num){
-        //Бинарный поиск
-        //int num = 0;
-        boolean found = false;
-        int mid = a.length/2;
-        do {
-
-            if (a[mid] == num){
+        //Поиск позиции элемента бинарным методом
+        int last = a.length;
+        int first = 1;
+        while(first <= last) {
+            int middle = (first+last) / 2;
+            if (a[middle] == num) {
+                return middle + 1;
             }
-        }while(!found);
-        System.out.println(a.length/2);
-        return num;
+            else if (a[middle] < num) {
+                first = middle+1;
+            }
+            else{
+                last = middle-1;
+            }
+        }
+        return 0;
     }
 }
 
